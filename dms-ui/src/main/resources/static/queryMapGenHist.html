@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html ng-app="MainModule">
+
+<head>
+  <!-- JQuery -->
+  <!--script src="libs/jquery/dist/jquery.min.js"></script-->
+
+  <!-- Angular with Bootstrap -->  
+  <!--link href="libs/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <script src="libs/bootstrap/dist/js/bootstrap.min.js" ></script>
+  <script src="libs/angularjs/angular.min.js" ></script-->
+
+  <!-- Angular UI Bootstrap -->
+  <script src="libs/angular/angular.js" ></script>
+  <script src="libs/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+  <link href="libs/bootstrap-css-only/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Components -->    
+  <!--script src="libs/angular-touch/angular-touch.min.js"></script>
+  <script src="libs/angular-ui-grid/ui-grid.min.js"></script>
+  <link href="libs/angular-ui-grid/ui-grid.min.css" rel="stylesheet"-->
+
+  <!-- my code -->
+  <script src="queryMapGenHistApp.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <h1>Die Map System!</h1>
+  <!-- query condition -->  
+  <div ng-controller="MapGenHistController">
+    <div class="col-md-8">
+      <form name="form" class="form-inline" novalidate>
+        <div class="form-group">
+          <label for="inputWaferId">Wafer Id</label>          
+          <input type="text" id="inputWaferId" name="waferId"
+            ng-model="queryCondition.waferId"  required=""
+            uib-typeahead="waferId for waferId in waferIdList | filter:$viewValue" 
+            typeahead-min-length="3" >          
+          <label for="inputSortNo">Sort No</label>                
+          <input type="text" id="inputSortNo" name="sortNo"            
+            ng-model="queryCondition.sortNo" />          
+        </div>
+
+        <div class="form-group">
+          <label for="inputFromDate">From</label>
+          <div class="input-group">
+            <input type="text" class="form-control" name="fromDate"
+              ng-model="queryCondition.fromDate" ng-required="true"
+              uib-datepicker-popup="yyyy/M/d" 
+              is-open="fromDateOpened" />
+            <span class="input-group-btn">
+              <button type="button" class="btn btn-default" ng-click="fromDateOpen()">
+                <i class="glyphicon glyphicon-calendar"></i>
+              </button>
+            </span>
+          </div>      
+          <label for="inputToDate">From</label>
+          <div class="input-group">
+            <input type="text" class="form-control" name="toDate"
+              ng-model="queryCondition.toDate" ng-required="true"
+              uib-datepicker-popup="yyyy/M/d" 
+              is-open="toDateOpened" />
+            <span class="input-group-btn">
+              <button type="button" class="btn btn-default" ng-click="toDateOpen()">
+                <i class="glyphicon glyphicon-calendar"></i>
+              </button>
+            </span>
+          </div>      
+        </div>
+        <br />
+        <div ng-show="form.$submitted || form.waferId.$touched">
+          <div class="alert alert-danger" 
+            ng-show="form.waferId.$error.required">Please input wafer id.</div>
+        </div>
+        <input type="submit" class="btn btn-primary"
+          ng-click="query(queryCondition)" value="Query" />
+      </form>
+      <!-- <pre>queryCondition = {{queryCondition | json}}</pre>
+      <pre>result = {{result | json}}</pre> -->
+
+      <!-- Map Result --> 
+      <div >
+        <!-- <div id="mapGenHistResult" ui-grid="{ data: result }" class="grid"></div>     -->
+        <table class="table table-bordered table-condensed table-hover">
+          <caption>Map Generation History</caption>
+          <thead>
+            <tr>
+              <th class="col-md-2">Wafer Id</th>
+              <th class="col-md-2">Sort No</th>            
+              <th class="col-md-2">Claim Time</th>
+              <th class="col-md-2">Claim User</th>
+              <th class="col-md-4">Claim Memo</th>
+              <th class="col-md-2">Application</th>
+            </tr>
+          </thead>
+          <tbody align="center" class="text-left">
+            <tr ng-repeat="mapGenHist in result.mapGenHist" ng-click="showMap(mapGenHist)" >
+              <td>{{mapGenHist.waferId}}</td>
+              <td>{{mapGenHist.sortNo}}</td>
+              <td>{{mapGenHist.claimTime | date:'yyyy/MM/dd HH:mm:ss'}}</td>
+              <td>{{mapGenHist.claimUser}}</td>            
+              <td>{{mapGenHist.claimMemo}}</td>
+              <td>{{mapGenHist.accessApplication}}</td>            
+            </tr>
+          </tbody>
+        </table>      
+        <pre>mapContent = {{mapContent}}</pre>      
+      </div>
+    </div>    
+  </div>
+</body>
+
+</html>
