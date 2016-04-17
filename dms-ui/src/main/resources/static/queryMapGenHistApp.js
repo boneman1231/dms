@@ -1,7 +1,7 @@
-var mainModule = angular.module("MainModule", ['ui.bootstrap']);
+var app = angular.module("MainModule", ['ui.bootstrap', 'smart-table']);
 // var mainModule = angular.module("MainModule", ['ui.bootstrap','ngTouch', 'ui.grid']);
 
-mainModule.controller("MapGenHistController",
+app.controller("MapGenHistController",
   function($scope, $http, $filter, $timeout) {
     // date pickers
     $scope.fromDateOpen = function() {
@@ -25,7 +25,9 @@ mainModule.controller("MapGenHistController",
         'waferId=' + queryCondition.waferId + 
         '&sortNo=' + queryCondition.sortNo;      
       $http.get(contentUrl).success(function(data) {   
-          $scope.result=data._embedded;          
+          $scope.result=data._embedded;      
+          // smart table
+          $scope.mapGenHistList=data._embedded.mapGenHist;
       });
     };
 
@@ -34,6 +36,29 @@ mainModule.controller("MapGenHistController",
       // TODO file management service
       $scope.mapContent = mapGenHist.waferId + '_'+ 
         mapGenHist.sortNo + mapGenHist.claimTime;
+    };    
+    
+    $scope.query({
+      waferId: "N12345.01",
+      sortNo: "G"
+    });
+
+    // smart table
+    $scope.rowList = [];
+    $scope.addItem = function(mapGenHist) {
+      $scope.rowList.push({
+            waferId: "N12345.10",
+            sortNo: "A",
+            claimUser: "Tim",
+            claimMemo: "randon added",
+            accessApplication: "system"
+        });      
+    };    
+    $scope.removeRow = function(mapGenHist) {
+      var index = $scope.rowList.indexOf(mapGenHist);
+        if (index !== -1) {
+            $scope.rowList.splice(index, 1);
+        }
     };    
   }
 );

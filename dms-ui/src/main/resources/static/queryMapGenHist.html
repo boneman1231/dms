@@ -19,6 +19,7 @@
   <!--script src="libs/angular-touch/angular-touch.min.js"></script>
   <script src="libs/angular-ui-grid/ui-grid.min.js"></script>
   <link href="libs/angular-ui-grid/ui-grid.min.css" rel="stylesheet"-->
+  <script src="libs/angular-smart-table/dist/smart-table.min.js"></script>
 
   <!-- my code -->
   <script src="queryMapGenHistApp.js"></script>
@@ -34,7 +35,7 @@
         <div class="form-group">
           <label for="inputWaferId">Wafer Id</label>          
           <input type="text" id="inputWaferId" name="waferId"
-            ng-model="queryCondition.waferId"  required=""
+            ng-model="queryCondition.waferId"  required
             uib-typeahead="waferId for waferId in waferIdList | filter:$viewValue" 
             typeahead-min-length="3" >          
           <label for="inputSortNo">Sort No</label>                
@@ -73,7 +74,8 @@
           <div class="alert alert-danger" 
             ng-show="form.waferId.$error.required">Please input wafer id.</div>
         </div>
-        <input type="submit" class="btn btn-primary"
+        <input type="submit" class="btn btn-primary" 
+          ng-disabled="form.waferId.$invalid"
           ng-click="query(queryCondition)" value="Query" />
       </form>
       <!-- <pre>queryCondition = {{queryCondition | json}}</pre>
@@ -82,7 +84,7 @@
       <!-- Map Result --> 
       <div >
         <!-- <div id="mapGenHistResult" ui-grid="{ data: result }" class="grid"></div>     -->
-        <table class="table table-bordered table-condensed table-hover">
+        <!-- <table class="table table-bordered table-condensed table-hover">
           <caption>Map Generation History</caption>
           <thead>
             <tr>
@@ -104,8 +106,49 @@
               <td>{{mapGenHist.accessApplication}}</td>            
             </tr>
           </tbody>
-        </table>      
+        </table>       -->
         <pre>mapContent = {{mapContent}}</pre>      
+      </div>
+
+      <!-- smart table -->
+      <div >
+        <button type="button" ng-click="addItem(row)" class="btn btn-sm btn-success">
+          <i class="glyphicon glyphicon-plus">
+          </i> Add item
+        </button>
+        <table st-table="rowList" st-safe-src="mapGenHistList" class="table table-striped">
+          <caption>Map Generation History</caption>
+          <thead>
+            <tr>
+              <th ng-repeat="(key,value) in rowList[0]"
+                ng-show="key!='_links'" >
+                {{key}}
+              </th>
+              <th>Action</th>
+            </tr>
+            <tr>
+              <input ng-repeat="(key,value) in rowList[0]"
+                st-search="key" 
+                placeholder="search for key" 
+                class="input-sm form-control" type="search"/>
+            </tr>
+          </thead>
+          <tbody align="center" class="text-left">            
+            <tr ng-repeat="mapGenHist in rowList"  >
+              <td ng-repeat="(key,value) in mapGenHist"
+                ng-show="key!='_links'"
+                contentEditable="true">
+                {{value | date:'yyyy/MM/dd HH:mm:ss'}}</td>  
+              </td>                            
+              <td>
+                <button type="button" ng-click="removeRow(mapGenHist)" class="btn btn-sm btn-danger">
+                  <i class="glyphicon glyphicon-remove">
+                  </i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>      
       </div>
     </div>    
   </div>
