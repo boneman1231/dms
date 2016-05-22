@@ -1,0 +1,31 @@
+
+Service
+
+Type	Class			Method			Sponsor		Consumer	Remark
+SOAP	ICOS_SUM
+SOAP	ICOS_ITE
+SOAP	tray id list
+SOAP	stage
+
+REST	ICOS_DEFECT
+REST	ICOS_DEFECT_REVIEW
+REST	ICOS_DEFECT_DEF	CRUD
+
+
+
+DAO
+Class			Method			Sponsor		Consumer	Remark
+ICOS_SUM		CRUD			┄眷/篯	紌		Add ICOS_STAGE_ID field
+ICOS_ITE		CRUD			┄眷/篯	紌		Add ICOS_STAGE_ID field
+
+ICOS_DEFECT_REVIEW	CRUD			篯/じ模	┄眷		Insert defect information from parser	
+ICOS_DEFECT		CRUD			篯/じ模	┄眷		Insert defect information from parser	
+ICOS_DEFECT		getDefectCnt		篯/じ模	▅颈		Defect Overview
+ICOS_DEFECT		getDefectCntByDefectItem篯/じ模	▅颈		Defect Overview 
+ICOS_DEFECT		getDefectCntBySubDefectItem 篯/じ模	▅颈		Defect Overview 
+ICOS_DEFECT		getDefectList		篯/じ模	紌		Defect Edit
+ICOS_DEFECT_IMAGE	CRUD			篯/じ模	┄眷		Insert defect information from parser	
+ICOS_DEFECT_DEF		CRUD			ム		ム		Defect Item Management
+ICOS_DEFECT_DEF		getDefectItemsByStage	ム		▅颈		Defect Overview 
+ICOS_DEFECT_DEF		getSubDefectItemsByStageム		▅颈		Defect Overview 
+ICOS_DEFECT_DEF		getSubDefectItemsByStageム		紌		Defect Edit (popup panel)
