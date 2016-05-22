@@ -1,31 +1,45 @@
-
 Service
-
-Type	Class			Method			Sponsor		Consumer	Remark
-SOAP	ICOS_SUM
-SOAP	ICOS_ITE
-SOAP	tray id list
-SOAP	stage
-
-REST	ICOS_DEFECT
-REST	ICOS_DEFECT_REVIEW
-REST	ICOS_DEFECT_DEF	CRUD
-
-
+Type	Class			Method				Sponsor		Consumer	Remark
+SOAP	ICOS_SUM		CRUD				©¨¾ì/®¦º]	¬ü¼z		Add ICOS_STAGE_ID field
+SOAP	ICOS_ITEM		CRUD/getSourceTrayList		©¨¾ì/®¦º]	¬ü¼z		Add ICOS_STAGE_ID field
+REST	ICOS			getStageId			®¦º]		¬ü¼z/¨|¾±/«Â¥à	All
+REST	SAO			getDefectImageByThumbnail	©¨¾ì		¬ü¼z/Yafu	Defect Edit
+REST	ICOS_DEFECT_REVIEW	getDefectReviewList		¨|¾±		¨|¾±		Defect Overview
+REST	ICOS_DEFECT_REVIEW	getLotListByStage		¨|¾±		¨|¾±		Defect Overview
+REST	ICOS_DEFECT		insert/update/delete		¤¸Ä£		¬ü¼z/Yafu	Defect Edit
+REST	ICOS_DEFECT 		getSourceTrayListByLot		¤¸Ä£		¬ü¼z		Defect Edit
+REST	ICOS_DEFECT		getTargetTrayListByLot		¤¸Ä£		¬ü¼z		Defect Edit
+REST	ICOS_DEFECT		getDefectItemListWithImages	¤¸Ä£		¬ü¼z/Yafu	Defect Edit (show image)
+REST	ICOS_DEFECT		insert/update/delete		¨|¾±		©¨¾ì		Insert defect information from parser	
+										¬ü¼z		Defect Edit
+REST	ICOS_DEFECT		getDefectCnt			¨|¾±		¨|¾±		Defect Overview
+REST	ICOS_DEFECT		getDefectCntByDefectItem	¨|¾±		¨|¾±		Defect Overview 
+REST	ICOS_DEFECT		getDefectCntBySubDefectItem 	¨|¾±		¨|¾±		Defect Overview 
+REST	ICOS_DEFECT		getDefectList			¤¸Ä£		¬ü¼z		Defect Edit
+REST	ICOS_DEFECT_DEF		insert/update/delete		«Â¥à		¨|¾±		Defect Overview 
+										«Â¥à		Defect Item Management
+REST	ICOS_DEFECT_DEF		getDefectItemListByStage	«Â¥à		¨|¾±		Defect Overview 
+										«Â¥à		Defect Item Management
+REST	ICOS_DEFECT_DEF		getSubDefectItemListByStage	«Â¥à		¨|¾±		Defect Overview 
+										¬ü¼z		Defect Edit (popup panel)
+										«Â¥à		Defect Item Management
 
 DAO
-Class			Method			Sponsor		Consumer	Remark
-ICOS_SUM		CRUD			©¨¾ì/®¦º]	¬ü¼z		Add ICOS_STAGE_ID field
-ICOS_ITE		CRUD			©¨¾ì/®¦º]	¬ü¼z		Add ICOS_STAGE_ID field
-
-ICOS_DEFECT_REVIEW	CRUD			®¦º]/¤¸Ä£	©¨¾ì		Insert defect information from parser	
-ICOS_DEFECT		CRUD			®¦º]/¤¸Ä£	©¨¾ì		Insert defect information from parser	
-ICOS_DEFECT		getDefectCnt		®¦º]/¤¸Ä£	¨|¾±		Defect Overview
-ICOS_DEFECT		getDefectCntByDefectItem®¦º]/¤¸Ä£	¨|¾±		Defect Overview 
-ICOS_DEFECT		getDefectCntBySubDefectItem ®¦º]/¤¸Ä£	¨|¾±		Defect Overview 
-ICOS_DEFECT		getDefectList		®¦º]/¤¸Ä£	¬ü¼z		Defect Edit
-ICOS_DEFECT_IMAGE	CRUD			®¦º]/¤¸Ä£	©¨¾ì		Insert defect information from parser	
-ICOS_DEFECT_DEF		CRUD			«Â¥à		«Â¥à		Defect Item Management
-ICOS_DEFECT_DEF		getDefectItemsByStage	«Â¥à		¨|¾±		Defect Overview 
-ICOS_DEFECT_DEF		getSubDefectItemsByStage«Â¥à		¨|¾±		Defect Overview 
-ICOS_DEFECT_DEF		getSubDefectItemsByStage«Â¥à		¬ü¼z		Defect Edit (popup panel)
+Class			Method				Sponsor		Consumer	Remark
+ICOS_SUM		CRUD				©¨¾ì		©¨¾ì		Add ICOS_STAGE_ID field
+ICOS_ITE		CRUD				©¨¾ì		©¨¾ì		Add ICOS_STAGE_ID field
+ICOS_DEFECT_REVIEW	insert/update			©¨¾ì		©¨¾ì		Insert defect information from parser	
+ICOS_DEFECT_REVIEW	getDefectReviewList		®¦º]		¨|¾±		getDefectReviewList service
+ICOS_DEFECT_REVIEW	getLotListByStage		®¦º]		¨|¾±		getLotListByStage service
+ICOS_DEFECT 		getSourceTrayListByLot		¤¸Ä£		¤¸Ä£		getSourceTrayListByLot service
+ICOS_DEFECT		getTargetTrayListByLot		¤¸Ä£		¤¸Ä£		getTargetTrayListByLot service
+ICOS_DEFECT		insert/update/delete		¤¸Ä£		¤¸Ä£		insert/update/delete service
+ICOS_DEFECT		getDefectCnt			¨|¾±		¨|¾±		getDefectCnt service
+ICOS_DEFECT		getDefectCntByDefectItem	¨|¾±		¨|¾±		getDefectCntByDefectItem service
+ICOS_DEFECT		getDefectCntBySubDefectItem 	¨|¾±		¨|¾±		getDefectCntBySubDefectItem service
+ICOS_DEFECT		getDefectList			¤¸Ä£		¤¸Ä£		getDefectList service
+ICOS_DEFECT_IMAGE	insert(update/delete)		©¨¾ì		©¨¾ì		Insert defect information from parser	
+ICOS_DEFECT_IMAGE	getImageListByDie		¤¸Ä£		¤¸Ä£		getDefectItemListWithImages service
+ICOS_DEFECT_DEF		insert/update/delete		«Â¥à		«Â¥à		Defect Item Management service
+ICOS_DEFECT_DEF		getDefectItemListByStage	«Â¥à		«Â¥à		getDefectItemListByStage service
+ICOS_DEFECT_DEF		getSubDefectItemListByStage	«Â¥à		«Â¥à		getSubDefectItemListByStage service
